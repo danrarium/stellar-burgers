@@ -1,30 +1,49 @@
 import { FC, memo } from 'react';
+import { useParams, useLocation, useNavigate } from 'react-router-dom';
 
 import styles from './feed.module.css';
 
 import { FeedUIProps } from './type';
-import { OrdersList, FeedInfo } from '@components';
+import { OrdersList, FeedInfo, Modal, OrderDetails } from '@components';
 import { RefreshButton } from '@zlden/react-developer-burger-ui-components';
 
-export const FeedUI: FC<FeedUIProps> = memo(({ orders, handleGetFeeds }) => (
-  <main className={styles.containerMain}>
-    <div className={`${styles.titleBox} mt-10 mb-5`}>
-      <h1 className={`${styles.title} text text_type_main-large`}>
-        Лента заказов
-      </h1>
-      <RefreshButton
-        text='Обновить'
-        onClick={handleGetFeeds}
-        extraClass={'ml-30'}
-      />
-    </div>
-    <div className={styles.main}>
-      <div className={styles.columnOrders}>
-        <OrdersList orders={orders} />
-      </div>
-      <div className={styles.columnInfo}>
-        <FeedInfo />
-      </div>
-    </div>
-  </main>
-));
+export const FeedUI: FC<FeedUIProps> = memo(({ orders, handleGetFeeds }) => {
+  const { id } = useParams<{ id: string }>();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const background = (location.state as { background?: Location })?.background;
+
+  const handleCloseModal = () => {
+    navigate(-1);
+  };
+
+  return (
+    <>
+      <main className={styles.containerMain}>
+        <div className={`${styles.titleBox} mt-10 mb-5`}>
+          <h1 className={`${styles.title} text text_type_main-large`}>
+            Лента заказов
+          </h1>
+          <RefreshButton
+            text='Обновить'
+            onClick={handleGetFeeds}
+            extraClass={'ml-30'}
+          />
+        </div>
+        <div className={styles.main}>
+          <div className={styles.columnOrders}>
+            <OrdersList orders={orders} />
+          </div>
+          <div className={styles.columnInfo}>
+            <FeedInfo />
+          </div>
+        </div>
+      </main>
+      {id && background && (
+        <Modal title='Детали заказа' onClose={handleCloseModal}>
+          <OrderDetails />
+        </Modal>
+      )}
+    </>
+  );
+});

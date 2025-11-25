@@ -1,17 +1,36 @@
 import { FC, SyntheticEvent, useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { useDispatch } from '../../services/store';
+import { loginUser } from '../../services/slices/userSlice';
 import { LoginUI } from '@ui-pages';
 
 export const Login: FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
+    setError('');
+
+    dispatch(loginUser({ email, password })).then((result) => {
+      if (loginUser.fulfilled.match(result)) {
+        // Redirect back to the page user tried to access, or to home
+        const from =
+          (location.state as { from?: Location })?.from?.pathname || '/';
+        navigate(from, { replace: true });
+      } else if (loginUser.rejected.match(result)) {
+        setError(String(result.payload) || 'Ошибка при входе');
+      }
+    });
   };
 
   return (
     <LoginUI
-      errorText=''
+      errorText={error}
       email={email}
       setEmail={setEmail}
       password={password}
