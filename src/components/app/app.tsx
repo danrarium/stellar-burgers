@@ -25,7 +25,7 @@ import '../../index.css';
 import styles from './app.module.css';
 
 import { AppHeader } from '@components';
-import { Modal, IngredientDetails } from '@components';
+import { Modal, IngredientDetails, OrderDetails } from '@components';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -140,13 +140,24 @@ const AppRoutes = ({ isAuthenticated }: { isAuthenticated: boolean }) => {
           <Route
             path='/ingredients/:id'
             element={
-              <Modal
-                title='Детали ингредиента'
-                onClose={() => {
-                  navigate(-1);
-                }}
-              >
+              <Modal title='Детали ингредиента' onClose={() => navigate(-1)}>
                 <IngredientDetails />
+              </Modal>
+            }
+          />
+          <Route
+            path='/feed/:id'
+            element={
+              <Modal title='Детали заказа' onClose={() => navigate(-1)}>
+                <OrderDetails />
+              </Modal>
+            }
+          />
+          <Route
+            path='/profile/orders/:id'
+            element={
+              <Modal title='Детали заказа' onClose={() => navigate(-1)}>
+                <OrderDetails />
               </Modal>
             }
           />

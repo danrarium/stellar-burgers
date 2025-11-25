@@ -26,11 +26,17 @@ export const ProfileOrdersUI: FC<ProfileOrdersUIProps> = ({ orders }) => {
           <OrdersList orders={orders} />
         </div>
       </main>
-      {id && background && (
-        <Modal title='Детали заказа' onClose={handleCloseModal}>
-          <OrderDetails />
-        </Modal>
-      )}
+      {id &&
+        (background ? (
+          <Modal title='Детали заказа' onClose={handleCloseModal}>
+            <OrderDetails />
+          </Modal>
+        ) : (
+          // Direct navigation to /profile/orders/:id — show order details as a page
+          <main className={styles.main}>
+            <OrderDetails />
+          </main>
+        ))}
     </>
   );
 };

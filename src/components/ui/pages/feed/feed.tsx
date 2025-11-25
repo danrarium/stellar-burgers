@@ -39,11 +39,17 @@ export const FeedUI: FC<FeedUIProps> = memo(({ orders, handleGetFeeds }) => {
           </div>
         </div>
       </main>
-      {id && background && (
-        <Modal title='Детали заказа' onClose={handleCloseModal}>
-          <OrderDetails />
-        </Modal>
-      )}
+      {id &&
+        (background ? (
+          <Modal title='Детали заказа' onClose={handleCloseModal}>
+            <OrderDetails />
+          </Modal>
+        ) : (
+          // Direct navigation to /feed/:id — show order details as a page
+          <main className={styles.containerMain}>
+            <OrderDetails />
+          </main>
+        ))}
     </>
   );
 });

@@ -5,3 +5,27 @@
 .form {
   max-width: 480px;
 }
+
+.passwordWrapper {
+  position: relative;
+}
+
+.editButton {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 2;
+}
+
+/* Give the internal input extra right padding so the eye icon doesn't overlap the pencil */
+.passwordWrapper input {
+  padding-right: 96px !important;
+}
