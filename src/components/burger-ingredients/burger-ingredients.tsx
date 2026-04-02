@@ -4,8 +4,11 @@ import { useInView } from 'react-intersection-observer';
 import { TTabMode, TIngredient } from '@utils-types';
 import { useSelector, type RootState } from '../../services/store';
 import { BurgerIngredientsUI } from '../ui/burger-ingredients';
+import { useSelector } from '../../services/store';
+import { selectIngredients } from '../../services/slices/ingredientsSlice';
 
 export const BurgerIngredients: FC = () => {
+<<<<<<< Updated upstream
   const ingredients = useSelector(
     (state: RootState) => state.ingredients.items
   );
@@ -19,6 +22,13 @@ export const BurgerIngredients: FC = () => {
   const sauces: TIngredient[] = ingredients.filter(
     (item: TIngredient) => item.type === 'sauce'
   );
+=======
+  const items = useSelector(selectIngredients);
+
+  const buns = items.filter((i) => i.type === 'bun');
+  const mains = items.filter((i) => i.type === 'main');
+  const sauces = items.filter((i) => i.type === 'sauce');
+>>>>>>> Stashed changes
 
   const [currentTab, setCurrentTab] = useState<TTabMode>('bun');
   const titleBunRef = useRef<HTMLHeadingElement>(null);

@@ -1,11 +1,20 @@
 import { ProfileUI } from '@ui-pages';
 import { FC, SyntheticEvent, useEffect, useState } from 'react';
+<<<<<<< Updated upstream
 import { useDispatch, useSelector, type RootState } from '../../services/store';
 import { updateUser } from '../../services/slices/userSlice';
 
 export const Profile: FC = () => {
   const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.user.user);
+=======
+import { useDispatch, useSelector } from '../../services/store';
+import { selectUser, updateUser } from '../../services/slices/userSlice';
+
+export const Profile: FC = () => {
+  const dispatch = useDispatch();
+  const user = useSelector(selectUser);
+>>>>>>> Stashed changes
 
   const [formValue, setFormValue] = useState({
     name: user?.name || '',
@@ -29,6 +38,7 @@ export const Profile: FC = () => {
 
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
+<<<<<<< Updated upstream
     try {
       const updated = await dispatch(
         updateUser({
@@ -48,6 +58,9 @@ export const Profile: FC = () => {
     } catch (err) {
       // error is handled in the slice; nothing to do here
     }
+=======
+    dispatch(updateUser(formValue));
+>>>>>>> Stashed changes
   };
 
   const handleCancel = (e: SyntheticEvent) => {

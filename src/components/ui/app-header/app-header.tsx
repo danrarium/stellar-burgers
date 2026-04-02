@@ -15,6 +15,7 @@ export const AppHeaderUI: FC<TAppHeaderUIProps> = ({ userName }) => (
       <div className={styles.menu_part_left}>
         <NavLink
           to='/'
+<<<<<<< Updated upstream
           className={({ isActive }) =>
             `${styles.link} ${isActive ? styles.link_active : ''}`
           }
@@ -22,6 +23,21 @@ export const AppHeaderUI: FC<TAppHeaderUIProps> = ({ userName }) => (
         >
           <BurgerIcon type={'primary'} />
           <p className='text text_type_main-default ml-2 mr-10'>Конструктор</p>
+=======
+          end
+          className={({ isActive }) =>
+            `${styles.link} ${isActive ? styles.link_active : ''}`
+          }
+        >
+          {({ isActive }) => (
+            <>
+              <BurgerIcon type={isActive ? 'primary' : 'secondary'} />
+              <p className='text text_type_main-default ml-2 mr-10'>
+                Конструктор
+              </p>
+            </>
+          )}
+>>>>>>> Stashed changes
         </NavLink>
         <NavLink
           to='/feed'
@@ -29,8 +45,17 @@ export const AppHeaderUI: FC<TAppHeaderUIProps> = ({ userName }) => (
             `${styles.link} ${isActive ? styles.link_active : ''}`
           }
         >
+<<<<<<< Updated upstream
           <ListIcon type={'primary'} />
           <p className='text text_type_main-default ml-2'>Лента заказов</p>
+=======
+          {({ isActive }) => (
+            <>
+              <ListIcon type={isActive ? 'primary' : 'secondary'} />
+              <p className='text text_type_main-default ml-2'>Лента заказов</p>
+            </>
+          )}
+>>>>>>> Stashed changes
         </NavLink>
       </div>
       <div className={styles.logo}>
@@ -43,10 +68,21 @@ export const AppHeaderUI: FC<TAppHeaderUIProps> = ({ userName }) => (
             `${styles.link} ${isActive ? styles.link_active : ''}`
           }
         >
+<<<<<<< Updated upstream
           <ProfileIcon type={'primary'} />
           <p className='text text_type_main-default ml-2'>
             {userName || 'Личный кабинет'}
           </p>
+=======
+          {({ isActive }) => (
+            <>
+              <ProfileIcon type={isActive ? 'primary' : 'secondary'} />
+              <p className='text text_type_main-default ml-2'>
+                {userName || 'Личный кабинет'}
+              </p>
+            </>
+          )}
+>>>>>>> Stashed changes
         </NavLink>
       </div>
     </nav>

@@ -1,4 +1,9 @@
+<<<<<<< Updated upstream
 import { useSelector, type RootState } from '../../services/store';
+=======
+import { useSelector } from '../../services/store';
+import { selectIngredientsLoading } from '../../services/slices/ingredientsSlice';
+>>>>>>> Stashed changes
 
 import styles from './constructor-page.module.css';
 
@@ -8,9 +13,13 @@ import { Preloader } from '../../components/ui';
 import { FC } from 'react';
 
 export const ConstructorPage: FC = () => {
+<<<<<<< Updated upstream
   const isIngredientsLoading = useSelector(
     (state: RootState) => state.ingredients.isLoading
   );
+=======
+  const isIngredientsLoading = useSelector(selectIngredientsLoading);
+>>>>>>> Stashed changes
 
   return (
     <>

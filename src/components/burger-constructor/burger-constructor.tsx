@@ -7,11 +7,21 @@ import {
   createOrder
 } from '../../services/slices/constructorSlice';
 import { BurgerConstructorUI } from '@ui';
+import { useDispatch, useSelector } from '../../services/store';
+import {
+  selectConstructorItems,
+  selectOrderRequest,
+  selectOrderModalData,
+  orderBurger,
+  resetConstructor
+} from '../../services/slices/constructorSlice';
+import { selectIsAuthenticated } from '../../services/slices/userSlice';
 
 export const BurgerConstructor: FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+<<<<<<< Updated upstream
   const bun = useSelector((state: RootState) => state.burgerConstructor.bun);
   const ingredients = useSelector(
     (state: RootState) => state.burgerConstructor.ingredients
@@ -33,10 +43,20 @@ export const BurgerConstructor: FC = () => {
   const onOrderClick = () => {
     if (!constructorItems.bun || orderRequest) return;
 
+=======
+  const constructorItems = useSelector(selectConstructorItems);
+  const orderRequest = useSelector(selectOrderRequest);
+  const orderModalData = useSelector(selectOrderModalData);
+  const isAuthenticated = useSelector(selectIsAuthenticated);
+
+  const onOrderClick = () => {
+    if (!constructorItems.bun || orderRequest) return;
+>>>>>>> Stashed changes
     if (!isAuthenticated) {
       navigate('/login');
       return;
     }
+<<<<<<< Updated upstream
 
     const ids: string[] = [];
     if (bun?._id) ids.push(bun._id);
@@ -44,12 +64,25 @@ export const BurgerConstructor: FC = () => {
     if (bun?._id) ids.push(bun._id);
 
     dispatch(createOrder(ids));
+=======
+    const ingredientIds = [
+      constructorItems.bun._id,
+      ...constructorItems.ingredients.map((i) => i._id),
+      constructorItems.bun._id
+    ];
+    dispatch(orderBurger(ingredientIds));
+  };
+
+  const closeOrderModal = () => {
+    dispatch(resetConstructor());
+>>>>>>> Stashed changes
   };
 
   const closeOrderModal = () => {
     dispatch(setOrderModalData(null));
   };
 
+<<<<<<< Updated upstream
   const price = useMemo(() => {
     const bunPrice = bun ? bun.price * 2 : 0;
     const ingredientsPrice = (ingredients ?? []).reduce(
@@ -59,6 +92,8 @@ export const BurgerConstructor: FC = () => {
     return bunPrice + ingredientsPrice;
   }, [bun, ingredients]);
 
+=======
+>>>>>>> Stashed changes
   return (
     <BurgerConstructorUI
       price={price}

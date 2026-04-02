@@ -4,16 +4,21 @@ import { useLocation } from 'react-router-dom';
 import { BurgerIngredientUI } from '@ui';
 import { TBurgerIngredientProps } from './type';
 import { useDispatch } from '../../services/store';
+<<<<<<< Updated upstream
 import {
   addIngredient as addIngredientAction,
   addBun as addBunAction
 } from '../../services/slices/constructorSlice';
+=======
+import { addIngredient } from '../../services/slices/constructorSlice';
+>>>>>>> Stashed changes
 
 export const BurgerIngredient: FC<TBurgerIngredientProps> = memo(
   ({ ingredient, count }) => {
     const location = useLocation();
     const dispatch = useDispatch();
 
+<<<<<<< Updated upstream
     const makeConstructorId = () =>
       `${ingredient._id}-${Date.now()}-${Math.random().toString(16).slice(2)}`;
 
@@ -26,6 +31,10 @@ export const BurgerIngredient: FC<TBurgerIngredientProps> = memo(
       } else {
         dispatch(addIngredientAction(constructorItem));
       }
+=======
+    const handleAdd = () => {
+      dispatch(addIngredient(ingredient));
+>>>>>>> Stashed changes
     };
 
     return (
