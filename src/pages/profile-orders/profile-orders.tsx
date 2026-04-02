@@ -1,16 +1,5 @@
 import { ProfileOrdersUI } from '@ui-pages';
 import { FC, useEffect } from 'react';
-<<<<<<< Updated upstream
-import { useDispatch, useSelector, type RootState } from '../../services/store';
-import { getOrders } from '../../services/slices/ordersSlice';
-
-export const ProfileOrders: FC = () => {
-  const dispatch = useDispatch();
-  const orders = useSelector((state: RootState) => state.orders.items);
-
-  useEffect(() => {
-    dispatch(getOrders());
-=======
 import { useDispatch, useSelector } from '../../services/store';
 import { selectUserOrders } from '../../services/slices/ordersSlice';
 import {
@@ -32,7 +21,6 @@ export const ProfileOrders: FC = () => {
     return () => {
       dispatch(wsDisconnectOrders());
     };
->>>>>>> Stashed changes
   }, [dispatch]);
 
   return <ProfileOrdersUI orders={orders} />;

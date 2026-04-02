@@ -1,11 +1,6 @@
 import { FC, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { TConstructorIngredient } from '@utils-types';
-import { useDispatch, useSelector, type RootState } from '../../services/store';
-import {
-  setOrderModalData,
-  createOrder
-} from '../../services/slices/constructorSlice';
 import { BurgerConstructorUI } from '@ui';
 import { useDispatch, useSelector } from '../../services/store';
 import {
@@ -21,29 +16,6 @@ export const BurgerConstructor: FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-<<<<<<< Updated upstream
-  const bun = useSelector((state: RootState) => state.burgerConstructor.bun);
-  const ingredients = useSelector(
-    (state: RootState) => state.burgerConstructor.ingredients
-  );
-  const constructorItems = useMemo(
-    () => ({ bun, ingredients: ingredients ?? [] }),
-    [bun, ingredients]
-  );
-  const orderRequest = useSelector(
-    (state: RootState) => state.burgerConstructor.orderRequest
-  );
-  const orderModalData = useSelector(
-    (state: RootState) => state.burgerConstructor.orderModalData
-  );
-  const isAuthenticated = useSelector(
-    (state: RootState) => state.user.isAuthenticated
-  );
-
-  const onOrderClick = () => {
-    if (!constructorItems.bun || orderRequest) return;
-
-=======
   const constructorItems = useSelector(selectConstructorItems);
   const orderRequest = useSelector(selectOrderRequest);
   const orderModalData = useSelector(selectOrderModalData);
@@ -51,20 +23,10 @@ export const BurgerConstructor: FC = () => {
 
   const onOrderClick = () => {
     if (!constructorItems.bun || orderRequest) return;
->>>>>>> Stashed changes
     if (!isAuthenticated) {
       navigate('/login');
       return;
     }
-<<<<<<< Updated upstream
-
-    const ids: string[] = [];
-    if (bun?._id) ids.push(bun._id);
-    ids.push(...(ingredients ?? []).map((i: TConstructorIngredient) => i._id));
-    if (bun?._id) ids.push(bun._id);
-
-    dispatch(createOrder(ids));
-=======
     const ingredientIds = [
       constructorItems.bun._id,
       ...constructorItems.ingredients.map((i) => i._id),
@@ -75,25 +37,18 @@ export const BurgerConstructor: FC = () => {
 
   const closeOrderModal = () => {
     dispatch(resetConstructor());
->>>>>>> Stashed changes
   };
 
-  const closeOrderModal = () => {
-    dispatch(setOrderModalData(null));
-  };
+  const price = useMemo(
+    () =>
+      (constructorItems.bun ? constructorItems.bun.price * 2 : 0) +
+      constructorItems.ingredients.reduce(
+        (s: number, v: TConstructorIngredient) => s + v.price,
+        0
+      ),
+    [constructorItems]
+  );
 
-<<<<<<< Updated upstream
-  const price = useMemo(() => {
-    const bunPrice = bun ? bun.price * 2 : 0;
-    const ingredientsPrice = (ingredients ?? []).reduce(
-      (s: number, v: TConstructorIngredient) => s + v.price,
-      0
-    );
-    return bunPrice + ingredientsPrice;
-  }, [bun, ingredients]);
-
-=======
->>>>>>> Stashed changes
   return (
     <BurgerConstructorUI
       price={price}

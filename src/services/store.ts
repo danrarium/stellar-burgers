@@ -4,21 +4,7 @@ import {
   useDispatch as dispatchHook,
   useSelector as selectorHook
 } from 'react-redux';
-import ingredientsReducer from './slices/ingredientsSlice';
-import constructorReducer from './slices/constructorSlice';
-import feedReducer from './slices/feedSlice';
-import ordersReducer from './slices/ordersSlice';
-import userReducer from './slices/userSlice';
 
-<<<<<<< Updated upstream
-const rootReducer = {
-  ingredients: ingredientsReducer,
-  burgerConstructor: constructorReducer,
-  feed: feedReducer,
-  orders: ordersReducer,
-  user: userReducer
-};
-=======
 import ingredientsReducer from './slices/ingredientsSlice';
 import constructorReducer from './slices/constructorSlice';
 import feedReducer from './slices/feedSlice';
@@ -68,7 +54,6 @@ const rootReducer = combineReducers({
   orders: ordersReducer,
   user: userReducer
 });
->>>>>>> Stashed changes
 
 const store = configureStore({
   reducer: rootReducer,
@@ -77,7 +62,7 @@ const store = configureStore({
   devTools: process.env.NODE_ENV !== 'production'
 });
 
-export type RootState = ReturnType<typeof store.getState>;
+export type RootState = ReturnType<typeof rootReducer>;
 
 export type AppDispatch = typeof store.dispatch;
 

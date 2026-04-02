@@ -1,11 +1,5 @@
-<<<<<<< Updated upstream
-import { FC, useMemo } from 'react';
-import { useParams } from 'react-router-dom';
-import { useSelector, type RootState } from '../../services/store';
-=======
 import { FC, useEffect, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
->>>>>>> Stashed changes
 import { Preloader } from '../ui/preloader';
 import { OrderInfoUI } from '../ui/order-info';
 import { TIngredient } from '@utils-types';
@@ -19,18 +13,6 @@ import {
 } from '../../services/slices/ordersSlice';
 
 export const OrderInfo: FC = () => {
-<<<<<<< Updated upstream
-  const { id } = useParams<{ id: string }>();
-  const feedOrders = useSelector((state: RootState) => state.feed.orders);
-  const userOrders = useSelector((state: RootState) => state.orders.items);
-  const ingredients = useSelector(
-    (state: RootState) => state.ingredients.items
-  );
-
-  const orderData = [...feedOrders, ...userOrders].find(
-    (order) => order.number.toString() === id
-  );
-=======
   const { number } = useParams<{ number: string }>();
   const dispatch = useDispatch();
 
@@ -55,7 +37,6 @@ export const OrderInfo: FC = () => {
       dispatch(fetchOrderByNumber(Number(number)));
     }
   }, [number, orderData, dispatch]);
->>>>>>> Stashed changes
 
   const orderInfo = useMemo(() => {
     if (!orderData || !ingredients.length) return null;

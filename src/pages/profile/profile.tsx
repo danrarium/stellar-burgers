@@ -1,27 +1,17 @@
 import { ProfileUI } from '@ui-pages';
 import { FC, SyntheticEvent, useEffect, useState } from 'react';
-<<<<<<< Updated upstream
-import { useDispatch, useSelector, type RootState } from '../../services/store';
-import { updateUser } from '../../services/slices/userSlice';
-
-export const Profile: FC = () => {
-  const dispatch = useDispatch();
-  const user = useSelector((state: RootState) => state.user.user);
-=======
 import { useDispatch, useSelector } from '../../services/store';
 import { selectUser, updateUser } from '../../services/slices/userSlice';
 
 export const Profile: FC = () => {
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
->>>>>>> Stashed changes
 
   const [formValue, setFormValue] = useState({
     name: user?.name || '',
     email: user?.email || '',
     password: ''
   });
-  const [passwordTouched, setPasswordTouched] = useState(false);
 
   useEffect(() => {
     setFormValue((prevState) => ({
@@ -32,35 +22,13 @@ export const Profile: FC = () => {
   }, [user]);
 
   const isFormChanged =
-    formValue.name !== (user?.name ?? '') ||
-    formValue.email !== (user?.email ?? '') ||
-    (passwordTouched && !!formValue.password);
+    formValue.name !== user?.name ||
+    formValue.email !== user?.email ||
+    !!formValue.password;
 
-  const handleSubmit = async (e: SyntheticEvent) => {
+  const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
-<<<<<<< Updated upstream
-    try {
-      const updated = await dispatch(
-        updateUser({
-          name: formValue.name,
-          email: formValue.email,
-          password: formValue.password
-        })
-      ).unwrap();
-
-      // On success, reset password and sync form with returned user
-      setFormValue({
-        name: updated.name || '',
-        email: updated.email || '',
-        password: ''
-      });
-      setPasswordTouched(false);
-    } catch (err) {
-      // error is handled in the slice; nothing to do here
-    }
-=======
     dispatch(updateUser(formValue));
->>>>>>> Stashed changes
   };
 
   const handleCancel = (e: SyntheticEvent) => {
@@ -70,7 +38,6 @@ export const Profile: FC = () => {
       email: user?.email || '',
       password: ''
     });
-    setPasswordTouched(false);
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -78,11 +45,7 @@ export const Profile: FC = () => {
       ...prevState,
       [e.target.name]: e.target.value
     }));
-    if (e.target.name === 'password') setPasswordTouched(true);
   };
-
-  const updateUserError = useSelector((state: RootState) => state.user.error);
-  const isLoading = useSelector((state: RootState) => state.user.isLoading);
 
   return (
     <ProfileUI
@@ -91,8 +54,6 @@ export const Profile: FC = () => {
       handleCancel={handleCancel}
       handleSubmit={handleSubmit}
       handleInputChange={handleInputChange}
-      updateUserError={updateUserError ?? undefined}
-      isLoading={isLoading}
     />
   );
 };

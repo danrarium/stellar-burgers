@@ -7,7 +7,7 @@ import { Preloader } from '../ui/preloader';
 export const OrderDetails: FC = () => {
   const { id } = useParams<{ id: string }>();
   const feedOrders = useSelector((state: RootState) => state.feed.orders);
-  const userOrders = useSelector((state: RootState) => state.orders.items);
+  const userOrders = useSelector((state: RootState) => state.orders.orders);
 
   // Look for order in both feed and user orders
   const order = [...feedOrders, ...userOrders].find(

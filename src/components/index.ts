@@ -4,7 +4,6 @@ export * from './burger-constructor-element';
 export * from './burger-ingredient';
 export * from './burger-ingredients';
 export * from './feed-info';
-export * from './guest-route';
 export * from './ingredient-details';
 export * from './ingredients-category';
 export * from './modal';
@@ -14,8 +13,4 @@ export * from './order-info';
 export * from './order-status';
 export * from './orders-list';
 export * from './profile-menu';
-<<<<<<< Updated upstream
-export * from './protected-route';
-=======
 export * from './protected-route/protected-route';
->>>>>>> Stashed changes
