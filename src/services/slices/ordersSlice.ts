@@ -1,5 +1,5 @@
-import { createAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { TOrder, TOrdersData } from '@utils-types';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { TOrder } from '@utils-types';
 import { getOrdersApi, getOrderByNumberApi } from '@api';
 
 interface OrdersState {
@@ -28,13 +28,6 @@ export const fetchOrderByNumber = createAsyncThunk(
     return response.orders[0];
   }
 );
-
-export const wsConnectOrders = createAction<string>('orders/wsConnect');
-export const wsDisconnectOrders = createAction('orders/wsDisconnect');
-export const wsOpenOrders = createAction('orders/wsOpen');
-export const wsCloseOrders = createAction('orders/wsClose');
-export const wsErrorOrders = createAction<string>('orders/wsError');
-export const wsMessageOrders = createAction<TOrdersData>('orders/wsMessage');
 
 const ordersSlice = createSlice({
   name: 'orders',
@@ -65,13 +58,6 @@ const ordersSlice = createSlice({
       .addCase(fetchOrderByNumber.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.error.message || 'Failed to fetch order';
-      })
-      .addCase(wsMessageOrders, (state, action) => {
-        state.orders = action.payload.orders;
-        state.isLoading = false;
-      })
-      .addCase(wsErrorOrders, (state, action) => {
-        state.error = action.payload;
       });
   }
 });

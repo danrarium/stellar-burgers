@@ -46,10 +46,7 @@ const constructorSlice = createSlice({
       const [item] = state.ingredients.splice(from, 1);
       state.ingredients.splice(to, 0, item);
     },
-    resetConstructor(state) {
-      state.bun = null;
-      state.ingredients = [];
-      state.orderRequest = false;
+    closeOrderModal(state) {
       state.orderModalData = null;
     }
   },
@@ -61,6 +58,8 @@ const constructorSlice = createSlice({
       .addCase(orderBurger.fulfilled, (state, action) => {
         state.orderRequest = false;
         state.orderModalData = action.payload.order;
+        state.bun = null;
+        state.ingredients = [];
       })
       .addCase(orderBurger.rejected, (state) => {
         state.orderRequest = false;
@@ -72,7 +71,7 @@ export const {
   addIngredient,
   removeIngredient,
   moveIngredient,
-  resetConstructor
+  closeOrderModal
 } = constructorSlice.actions;
 
 export const selectConstructorItems = (state: {

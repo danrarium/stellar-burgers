@@ -1,5 +1,5 @@
-import { createAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { TOrder, TOrdersData } from '@utils-types';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { TOrder } from '@utils-types';
 import { getFeedsApi } from '@api';
 
 interface FeedState {
@@ -20,13 +20,6 @@ const initialState: FeedState = {
 
 export const fetchFeeds = createAsyncThunk('feed/fetchAll', getFeedsApi);
 
-export const wsConnectFeed = createAction<string>('feed/wsConnect');
-export const wsDisconnectFeed = createAction('feed/wsDisconnect');
-export const wsOpenFeed = createAction('feed/wsOpen');
-export const wsCloseFeed = createAction('feed/wsClose');
-export const wsErrorFeed = createAction<string>('feed/wsError');
-export const wsMessageFeed = createAction<TOrdersData>('feed/wsMessage');
-
 const feedSlice = createSlice({
   name: 'feed',
   initialState,
@@ -46,15 +39,6 @@ const feedSlice = createSlice({
       .addCase(fetchFeeds.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.error.message || 'Failed to fetch feeds';
-      })
-      .addCase(wsMessageFeed, (state, action) => {
-        state.orders = action.payload.orders;
-        state.total = action.payload.total;
-        state.totalToday = action.payload.totalToday;
-        state.isLoading = false;
-      })
-      .addCase(wsErrorFeed, (state, action) => {
-        state.error = action.payload;
       });
   }
 });

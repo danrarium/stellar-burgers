@@ -8,7 +8,7 @@ import {
   selectOrderRequest,
   selectOrderModalData,
   orderBurger,
-  resetConstructor
+  closeOrderModal
 } from '../../services/slices/constructorSlice';
 import { selectIsAuthenticated } from '../../services/slices/userSlice';
 
@@ -35,8 +35,8 @@ export const BurgerConstructor: FC = () => {
     dispatch(orderBurger(ingredientIds));
   };
 
-  const closeOrderModal = () => {
-    dispatch(resetConstructor());
+  const handleCloseOrderModal = () => {
+    dispatch(closeOrderModal());
   };
 
   const price = useMemo(
@@ -56,7 +56,7 @@ export const BurgerConstructor: FC = () => {
       constructorItems={constructorItems}
       orderModalData={orderModalData}
       onOrderClick={onOrderClick}
-      closeOrderModal={closeOrderModal}
+      closeOrderModal={handleCloseOrderModal}
     />
   );
 };
