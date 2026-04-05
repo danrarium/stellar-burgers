@@ -54,7 +54,11 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './public/index.html'
     }),
-    new Dotenv()
+    new Dotenv({
+      path: './.env',
+      safe: false,
+      allowEmptyValues: false
+    })
   ],
   resolve: {
     extensions: [
@@ -76,7 +80,12 @@ module.exports = {
       '@ui': path.resolve(__dirname, './src/components/ui'),
       '@ui-pages': path.resolve(__dirname, './src/components/ui/pages'),
       '@utils-types': path.resolve(__dirname, './src/utils/types'),
+      '@utils-burger-api': path.resolve(__dirname, './src/utils/burger-api.ts'),
+      '@utils-cookie': path.resolve(__dirname, './src/utils/cookie.ts'),
       '@api': path.resolve(__dirname, './src/utils/burger-api.ts'),
+      '@services': path.resolve(__dirname, './src/services'),
+      '@services/store': path.resolve(__dirname, './src/services/store.ts'),
+      '@services/slices': path.resolve(__dirname, './src/services/slices'),
       '@slices': path.resolve(__dirname, './src/services/slices'),
       '@selectors': path.resolve(__dirname, './src/services/selectors')
     }

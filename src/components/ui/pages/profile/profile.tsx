@@ -10,6 +10,7 @@ import { ProfileMenu } from '@components';
 export const ProfileUI: FC<ProfileUIProps> = ({
   formValue,
   isFormChanged,
+  isLoading,
   updateUserError,
   handleSubmit,
   handleCancel,
@@ -61,9 +62,10 @@ export const ProfileUI: FC<ProfileUIProps> = ({
             errorText={''}
             size={'default'}
             icon={'EditIcon'}
+            autoComplete={'new-password'}
           />
         </div>
-        {isFormChanged && (
+        {isFormChanged && !isLoading && (
           <div className={styles.button}>
             <Button
               type='secondary'
